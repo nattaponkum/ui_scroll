@@ -25,25 +25,26 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<String> items = List<String>.generate(50, (i) =>'Item ${i+1}');
+    List<String> items = List<String>.generate(100, (i) => 'Item ${i + 1}');
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Chapter6'),
-        backgroundColor: Colors.blue,
-      ),
-      body: ListView.builder(
+      appBar: AppBar(title: Text('Chapter6'), backgroundColor: Colors.blue),
+      body: GridView.builder(
+        padding: EdgeInsets.all(8.0),
+        
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          mainAxisSpacing: 8.0,
+          crossAxisSpacing: 8.0,
+          crossAxisCount: 3,
+          childAspectRatio: 0.9
+        ),
         itemCount: items.length,
-        itemBuilder: (BuildContext context, int indx){
-        return ListTile(
-          title: Text(items[indx]),
-          subtitle: Text(items[indx]),
-          onTap: (){
-            print(items[indx]);
-          },
-        );
-      })
+        itemBuilder: (BuildContext context, int idx) {
+          return Container(
+            color:  Colors.teal[100*(idx%6)],
+            child: Center(child: Text(items[idx]))
+            );
+        },
+      ),
     );
   }
 }
-
-
